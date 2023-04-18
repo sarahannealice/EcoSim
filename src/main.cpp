@@ -8,6 +8,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include "../inc/GameSpecs.h"
 #include "../inc/Organism.h"
 #include "../inc/City.h"
 
@@ -21,18 +22,21 @@ void ClearScreen()
 
 int main() {
     int generation = 0;//generation counter
-    City *city = new City();
+    City *map = new City();
+
+    //intro
+    cout << BLANKCOLOR;
+    cout << "*.* ecosystem simulation between zombies and humans *.*\n\n";
 
     chrono:: milliseconds interval(INTERVAL);
 
-    while (city->hasDiversity()) { //while both humans and zombies exist
+    while (map->hasDiversity()) { //while both humans and zombies exist
         this_thread::sleep_for(interval);
-        ClearScreen();
 
-        cout << *city; //prints city
+        cout << *map; //prints city
         cout << "generation: " << generation << endl;
-        cout << "humans: " << city->countType(HUMAN) << endl;
-        cout << "zombies: " << city->countType(ZOMBIE) << endl;
+        cout << "humans: " << map->humanCount() << endl;
+        cout << "zombies: " << map->zombieCount() << endl;
 
         /*
         city->move(); //includes all actions
@@ -40,6 +44,7 @@ int main() {
          */
 
         generation++;//increases generation each
+        ClearScreen();
     }//end while
 }//end main
 

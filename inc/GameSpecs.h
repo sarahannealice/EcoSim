@@ -13,32 +13,21 @@ using namespace std;
 //---city specs & miscellaneous---//
 const int GRIDSIZE = 20;
 const int INTERVAL = 1000;//time
-const int ITERATIONS = 5000;//time-steps
-const char BLANK = 48;//ascii for 0
+const int ITERATIONS = 1000;//time-steps
+const char BLANK = '0';//ascii for 0
 const string BLANKCOLOR = "\033[34m";//pale blue
 
 //---human specs---//
-const char HUMAN = 72;//ascii H
-const int HUMANSTART =  50;
+const char HUMAN = 'H';//ascii H
+const int HUMANSTART =  5;//****change when done troubleshooting****
 const int RECRUIT = 3;
-const string HUMANCOLOR = "\033[93m";//yellow
+const string HUMANCOLOR = "\033[95m";//bright magenta
 
 //---zombie specs---//
-const char ZOMBIE = 90;//ascii Z
+const char ZOMBIE = 'Z';//ascii Z
 const int ZOMBIESTART = 5;
 const int BREED = 8;
 const int STARVE = 3;
-const string ZOMBIECOLOR = "\033[92m";//green
-
-//---colors provided by David---//
-//0  = black				//9  = bright blue
-//1  = blue					//10 = bright green
-//2  = green				//11 = bright turquoise
-//3  = turquoise			//12 = bright red
-//4  = red					//13 = bright pink
-//5  = pink					//14 = bright yellow
-//6  = yellow				//15 = bright white
-//7  = white regular		//16+ = solid blocks
-//8  = white pale
+const string ZOMBIECOLOR = "\033[92m";//bright green
 
 #endif //ECOSIM_SIMSPECS_H
