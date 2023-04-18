@@ -55,6 +55,18 @@ build CMakeFiles/EcoSim.dir/src/main.cpp.obj: CXX_COMPILER__EcoSim_Debug D$:/sar
   OBJECT_DIR = CMakeFiles\EcoSim.dir
   OBJECT_FILE_DIR = CMakeFiles\EcoSim.dir\src
 
+build CMakeFiles/EcoSim.dir/src/city.cpp.obj: CXX_COMPILER__EcoSim_Debug D$:/sarah/nscc/winter2023/PROG2100/EcoSim/src/city.cpp || cmake_object_order_depends_target_EcoSim
+  DEP_FILE = CMakeFiles\EcoSim.dir\src\city.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\EcoSim.dir
+  OBJECT_FILE_DIR = CMakeFiles\EcoSim.dir\src
+
+build CMakeFiles/EcoSim.dir/src/organism.cpp.obj: CXX_COMPILER__EcoSim_Debug D$:/sarah/nscc/winter2023/PROG2100/EcoSim/src/organism.cpp || cmake_object_order_depends_target_EcoSim
+  DEP_FILE = CMakeFiles\EcoSim.dir\src\organism.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\EcoSim.dir
+  OBJECT_FILE_DIR = CMakeFiles\EcoSim.dir\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target EcoSim
@@ -63,7 +75,7 @@ build CMakeFiles/EcoSim.dir/src/main.cpp.obj: CXX_COMPILER__EcoSim_Debug D$:/sar
 #############################################
 # Link the executable EcoSim.exe
 
-build EcoSim.exe: CXX_EXECUTABLE_LINKER__EcoSim_Debug CMakeFiles/EcoSim.dir/src/main.cpp.obj
+build EcoSim.exe: CXX_EXECUTABLE_LINKER__EcoSim_Debug CMakeFiles/EcoSim.dir/src/main.cpp.obj CMakeFiles/EcoSim.dir/src/city.cpp.obj CMakeFiles/EcoSim.dir/src/organism.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\EcoSim.dir

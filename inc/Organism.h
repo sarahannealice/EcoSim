@@ -2,7 +2,7 @@
 #define _Organism_H
 
 #include <iostream>
-#include "SimSpecs.h"
+#include "GameSpecs.h"
 
 using namespace std;
 
@@ -13,16 +13,15 @@ class Organism
 protected:
 	int x;
 	int y;
-	int width;
-	int height;
+    int type;
 	bool moved;
 	City *city;
 
-	enum { WEST, NORTH, EAST, SOUTH, NUM_DIRECTIONS };
+	enum { NORTH, NE, EAST, SE, SOUTH, SW, WEST, NW };
 
 public:
 	Organism();
-	Organism( City *city, int width, int height );
+	Organism( City *city, int x, int y, int type);
 	virtual ~Organism();
 
 	virtual void move() = 0;

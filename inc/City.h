@@ -3,19 +3,16 @@
 
 #include <iostream>
 #include <array>
-#include "SimSpecs.h"
+#include "GameSpecs.h"
 
 using namespace std;
 
 class Organism;
 
-const int GRID_WIDTH = GRIDSIZE;
-const int GRID_HEIGHT = GRIDSIZE;
-
 class City
 {
-protected:
-    Organism *grid[GRID_HEIGHT][GRID_WIDTH];
+private:
+    Organism *grid[GRIDSIZE][GRIDSIZE]{};
 
 public:
     //---constructors---//
@@ -27,11 +24,9 @@ public:
 
     void move();
     void reset();
-    void spawnHuman();
-    void spawnZombie();
-    int countTyoe(char orgType);
+    void spawnOrganisms();
+    int countType(char orgType);
     bool hasDiversity();
-    array<int, 2> emptySpot();
 
     friend ostream& operator<<( ostream &output, City &city );
 };

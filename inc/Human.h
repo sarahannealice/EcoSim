@@ -2,7 +2,6 @@
 #define _Human_H
 
 #include "Organism.h"
-#include "SimSpecs.h"
 
 class Human : public Organism
 {

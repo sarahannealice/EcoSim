@@ -22,6 +22,7 @@ void ClearScreen()
 int main() {
     int generation = 0;//generation counter
     City *city = new City();
+
     chrono:: milliseconds interval(INTERVAL);
 
     while (city->hasDiversity()) { //while both humans and zombies exist
@@ -33,8 +34,10 @@ int main() {
         cout << "humans: " << city->countType(HUMAN) << endl;
         cout << "zombies: " << city->countType(ZOMBIE) << endl;
 
+        /*
         city->move(); //includes all actions
         city->reset(); //resets moved flags
+         */
 
         generation++;//increases generation each
     }//end while

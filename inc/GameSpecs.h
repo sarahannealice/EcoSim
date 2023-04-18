@@ -1,31 +1,44 @@
-#ifndef _GAMESPECS_H
-#define _GAMESPECS_H
+#ifndef ECOSIM_SIMSPECS_H
+#define ECOSIM_SIMSPECS_H
 
+#include <string>
+#include <cstdlib>
+#include "GameSpecs.h"
 
-const int GRIDSIZE = 20; // size of the square grid
-const int HUMAN_STARTCOUNT = 100; // inital Humans
-const int ZOMBIE_STARTCOUNT = 5; //initial Zombie count
-const int HUMAN_BREED = 3; // steps until an Human breeds
-const int ZOMBIE_BREED = 8; // steps until an Zombie breeds
-const int ZOMBIE_STARVE = 3; // steps until a Zombie starves and converts back
-const char HUMAN_CH = 111;//79 "o"// ascii Human
-const char SPACE_CH = 32; // " " ascii space
-const char ZOMBIE_CH = 90;//90 "Z"// ascii zombie
-const double PAUSE_SECONDS = .09; // pause between steps
-const int ITERATIONS = 1000; // max number of steps
+using namespace std;
 
-//Colors
+//resource for ascii table -- https://en.cppreference.com/w/cpp/language/ascii
+//resource for colours -- https://stackoverflow.com/a/54062826
+//reason for const vs #define -- https://stackoverflow.com/a/3835772
+//---city specs & miscellaneous---//
+const int GRIDSIZE = 20;
+const int INTERVAL = 1000;//time
+const int ITERATIONS = 5000;//time-steps
+const char BLANK = 48;//ascii for 0
+const string BLANKCOLOR = "\033[34m";//pale blue
+
+//---human specs---//
+const char HUMAN = 72;//ascii H
+const int HUMANSTART =  50;
+const int RECRUIT = 3;
+const string HUMANCOLOR = "\033[93m";//yellow
+
+//---zombie specs---//
+const char ZOMBIE = 90;//ascii Z
+const int ZOMBIESTART = 5;
+const int BREED = 8;
+const int STARVE = 3;
+const string ZOMBIECOLOR = "\033[92m";//green
+
+//---colors provided by David---//
 //0  = black				//9  = bright blue
 //1  = blue					//10 = bright green
 //2  = green				//11 = bright turquoise
-//3  = turquise				//12 = bright red
+//3  = turquoise			//12 = bright red
 //4  = red					//13 = bright pink
 //5  = pink					//14 = bright yellow
 //6  = yellow				//15 = bright white
 //7  = white regular		//16+ = solid blocks
 //8  = white pale
 
-const int HUMAN_COLOR = 3; // turquoise
-const int ZOMBIE_COLOR = 14; // bright yellow
-
-#endif
+#endif //ECOSIM_SIMSPECS_H
