@@ -101,10 +101,10 @@ void City::spawnOrganisms() {
 
 }
 
-/*
+
 //checks every organism on the grid and makes them perform their routine
 void City::move() {
-    for (auto & row : grid) {
+    for (auto & row : map) {
         for (auto & organism : row) {
             if (organism != nullptr) {
                 organism->routine();
@@ -112,6 +112,8 @@ void City::move() {
         }
     }
 }
+
+ /*
 
 //resets every organism's 'move' boolean for next generation
 void City::reset() {
