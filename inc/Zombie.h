@@ -21,8 +21,10 @@ public:
     //---destructor---//
 	~Zombie() override;
 
-//	void move() override;
-//    void routine() override;
+    //---methods---//
+	void move() override;
+    void routine() override;
+    vector<spaces> findFood();
 //    bool breed();
 //    void starve();
 

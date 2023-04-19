@@ -5,6 +5,7 @@
 #include <chrono>
 #include <random>
 #include "../inc/City.h"
+#include "../inc/Organism.h"
 #include "../inc/Zombie.h"
 #include "../inc/Human.h"
 
@@ -45,6 +46,27 @@ int City::counter(char type) {
     return count;
 }
 
+//checks if grid spot contains human
+bool isHuman(Organism* organism, int coordinate) {
+    switch (coordinate) {
+        case Organism::NORTH:
+            placeOrg(organism, organism->x, organism->y - 1);
+
+    }
+
+    return true;
+}
+
+//places desired organism at x,y location on map
+void City::placeOrg(Organism* organism, int x, int y) {
+
+
+}
+
+//removes organism at x,y location on map
+void City::removeOrg(int x, int y) {
+
+}
 
 //function to spawn starting zombies and humans
 array<int, 2> City::spawnPoint() {
@@ -101,7 +123,6 @@ void City::spawnOrganisms() {
 
 }
 
-
 //checks every organism on the grid and makes them perform their routine
 void City::move() {
     for (auto & row : map) {
@@ -113,11 +134,11 @@ void City::move() {
     }
 }
 
- /*
 
+/*
 //resets every organism's 'move' boolean for next generation
 void City::reset() {
-    for (auto & row : grid) {
+    for (auto & row : map) {
         for (auto & organism : row) {
             if (organism != nullptr) {
                 organism->resetMove();

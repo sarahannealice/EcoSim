@@ -23,21 +23,26 @@ public:
     City();
     virtual ~City();
 
-//    Organism *getOrganism( int x, int y );
-//    void setOrganism( Organism *organism, int x, int y );
-
-//    void move();
-//    void reset();
+    //---methods---//
     array<int, 2> spawnPoint();
     void spawnOrganisms();
     int counter(char orgType);
     bool hasDiversity();
+    void move();
+    bool isHuman(Organism* organism, int coordinate);
+    void placeOrg(Organism* organism, int x, int y);
+    void removeOrg(int x, int y);
+
+//    Organism *getOrganism( int x, int y );
+//    void setOrganism( Organism *organism, int x, int y );
+
+//    void reset();
 
     //---counters---//
     void incZombies() { zombies++; };
-    int zombieCount() { return zombies; };
+    int zombieCount() const { return zombies; };
     void incHumans() { humans++; };
-    int humanCount() { return humans; }
+    int humanCount() const { return humans; }
 
     friend ostream& operator<<( ostream &output, City &city );
 };
