@@ -19,7 +19,11 @@ public:
     //---destructor---//
 	~Human() override = default;
 
-//	void move();
+    //---methods---//
+    void move() override;
+    void routine() override;
+    vector<Coordinate> viableSpaces();
+
 };
 
 #endif

@@ -13,13 +13,11 @@ class Organism
 protected:
     char type;
 	bool moved;
-	City *map;
+	City *map{};
 
 public:
     Coordinate xy;
-    int x{};
-    int y{};
-    enum { NORTH, NE, EAST, SE, SOUTH, SW, WEST, NW } typedef spaces;
+    vector<Coordinate> gridSpaces;
 
     //---constructors---//
 	Organism() = default;
@@ -29,9 +27,11 @@ public:
 
     //---methods---//
     char getType() const {return type;};//might not need
+//    virtual vector<Coordinate> viableSpaces();
     virtual void routine() = 0;
     virtual void move() = 0;
-    void placeOrg(Coordinate xy);
+    void setSpot(Coordinate newxy) {xy = newxy;};
+//    void placeOrg(Organism* organism, Coordinate update);
 
 //    virtual void getMoves() = 0;
 

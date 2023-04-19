@@ -13,7 +13,7 @@ struct Coordinate {
     int y{};
     //---constructors---//
     Coordinate() {x = 0, y = 0;};
-    Coordinate(int x, int y) {x = x, y = y;};
+    Coordinate(int x, int y) : x(x), y(y) {};
 };
 
 //resource for ascii table -- https://en.cppreference.com/w/cpp/language/ascii

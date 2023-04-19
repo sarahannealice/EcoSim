@@ -62,13 +62,44 @@ bool City::isHuman(Coordinate xy) {
 }
 
 //places desired organism at x,y location on map
-void City::setOrg(Organism *organism, Coordinate xy) {
-    map[xy.x][xy.y] = organism;
+void City::placeOrg(Organism* activeOrg, Coordinate xy) {
+    map[xy.x][xy.y] = activeOrg;
+    activeOrg->setSpot(xy);
+}
+
+//removes desired organism at x,y location on map
+void City::resetOrg(Coordinate xy) {
+    map[xy.x][xy.y] = nullptr;
 }
 
 Organism *City::getOrg(Coordinate xy) {
     return map[xy.x][xy.y];
 }
+
+//checks every organism on the grid and makes them perform their routine
+void City::move() {
+    for (auto & row : map) {
+        for (auto & organism : row) {
+            if (organism != nullptr) {
+                organism->routine();
+            }
+        }
+    }
+}
+
+
+/*
+//resets every organism's 'move' boolean for next generation
+void City::reset() {
+    for (auto & row : map) {
+        for (auto & organism : row) {
+            if (organism != nullptr) {
+                organism->resetMove();
+            }
+        }
+    }
+}
+ */
 
 //function to spawn starting zombies and humans
 array<int, 2> City::spawnPoint() {
@@ -121,36 +152,11 @@ void City::spawnOrganisms() {
         xy.x = spawn[0];
         xy.y = spawn[1];
 
-        Organism* human = new Human(this, xy, HUMAN);
-        map[x][y] = human;
+//        Organism* human = new Human(this, xy, HUMAN);
+//        map[x][y] = human;
     }
 
 }
-
-//checks every organism on the grid and makes them perform their routine
-void City::move() {
-    for (auto & row : map) {
-        for (auto & organism : row) {
-            if (organism != nullptr) {
-                organism->routine();
-            }
-        }
-    }
-}
-
-
-/*
-//resets every organism's 'move' boolean for next generation
-void City::reset() {
-    for (auto & row : map) {
-        for (auto & organism : row) {
-            if (organism != nullptr) {
-                organism->resetMove();
-            }
-        }
-    }
-}
- */
 
 ostream& operator<<(ostream &output, City &city) {
 

@@ -30,9 +30,9 @@ public:
     bool hasDiversity();
     void move();
     bool isHuman(Coordinate xy);
-    void setOrg(Organism* organism, Coordinate xy);
+    void placeOrg(Organism* organism, Coordinate xy);
+    void resetOrg(Coordinate xy);
     Organism *getOrg(Coordinate xy);
-    void removeOrg(Coordinate xy);
 
 
 //    void reset();

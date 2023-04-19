@@ -19,7 +19,7 @@ public:
     };
 
     //---destructor---//
-	~Zombie() override;
+	~Zombie() override = default;
 
     //---methods---//
 	void move() override;
@@ -27,8 +27,6 @@ public:
     vector<Coordinate> viableSpaces();
 //    bool breed();
 //    void starve();
-
-    //vector<spaces> moveOptions() override;
 
 };
 #endif
