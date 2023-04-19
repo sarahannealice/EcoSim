@@ -9,13 +9,15 @@
 
 //goes through human's routine
 void Human::routine() {
-    move();
-    if (recruitCount >= RECRUIT) {
-        recruit();
-        recruitCount = 0;
-    } else {
+    if (!moved) {
         move();
+        if (recruitCount > RECRUIT) {
+            this->recruitCount = 0;
+            recruit();
+        }
         recruitCount++;
+        moved = true;
+    } else {
     }
 }
 
@@ -26,8 +28,16 @@ void Human::move() {
     vector<Coordinate> gridSpaces = viableSpaces();
     int i = 0;
 
-    while (!moved && i < )
-
+    while (!moved) {
+        if (i >= gridSpaces.size()) {
+            break;
+        } else if (map->getOrg(gridSpaces.at(i)) == nullptr) {
+            map->resetOrg(current);
+            map->placeOrg(this, gridSpaces.at(i));
+            break;
+        }
+        i++;
+    }
 }
 
 vector<Coordinate> Human::viableSpaces() {
@@ -51,9 +61,27 @@ vector<Coordinate> Human::viableSpaces() {
         spaces.push_back(*new Coordinate(this->xy.x-1, this->xy.y));
     }
 
-    this->gridSpaces = spaces;
+//    this->gridSpaces = spaces;
     //randomized the vector
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-    shuffle(gridSpaces.begin(), gridSpaces.end(), default_random_engine(seed));
-    return gridSpaces;
+    shuffle(spaces.begin(), spaces.end(), default_random_engine(seed));
+    return spaces;
+}
+
+void Human::recruit() {
+    vector<Coordinate> gridSpaces = viableSpaces();
+    int i = 0;
+
+    while (!moved) {
+        if (i >= gridSpaces.size()) {
+            this->recruitCount = 0;
+            break;
+        } else if (map->getOrg(gridSpaces.at(i)) == nullptr) {
+            Organism* newOrg = new Human(map, gridSpaces.at(i), HUMAN);
+            map->placeOrg(newOrg, gridSpaces.at(i));
+            this->recruitCount = 0;
+            break;
+        }
+        i++;
+    }
 }

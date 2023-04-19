@@ -40,12 +40,6 @@ void Zombie::move() {
     //gathers potential coordinates
     vector<Coordinate> gridSpaces = viableSpaces();
 
-//    //randomized the vector
-//    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-//    shuffle(gridSpaces.begin(), gridSpaces.end(), default_random_engine(seed));
-
-
-
     int i = 0;
     //gets x-y coordinates from last coordinate in vector
     //used as a last resort in while loop
@@ -87,18 +81,8 @@ void Zombie::move() {
 //            break;
 //        }
 //    }
+}//end Zombie::move
 
-
-
-
-}
-
-//zombie eats human
-//removes current zombie location and replaces human-to-eat with zombie
-//resets 'starve' counter
-//void Zombie::eat() {
-//
-//}
 
 vector<Coordinate> Zombie::viableSpaces() {
     vector<Coordinate> spaces{};
@@ -137,12 +121,11 @@ vector<Coordinate> Zombie::viableSpaces() {
         spaces.push_back(*new Coordinate(this->xy.x-1, this->xy.y-1));
     }
 
-    this->gridSpaces = spaces;
-    //randomized the vector
+    //returns randomized vector
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-    shuffle(gridSpaces.begin(), gridSpaces.end(), default_random_engine(seed));
-    return gridSpaces;
-}
+    shuffle(spaces.begin(), spaces.end(), default_random_engine(seed));
+    return spaces;
+}//end Zombie::viablespaces
 
 
 

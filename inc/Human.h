@@ -24,6 +24,9 @@ public:
     void routine() override;
     vector<Coordinate> viableSpaces();
 
+    //---routine specifics---//
+    void recruit();
+
 };
 
 #endif

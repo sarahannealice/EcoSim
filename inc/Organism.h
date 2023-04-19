@@ -17,7 +17,6 @@ protected:
 
 public:
     Coordinate xy;
-    vector<Coordinate> gridSpaces;
 
     //---constructors---//
 	Organism() = default;
@@ -30,6 +29,8 @@ public:
 //    virtual vector<Coordinate> viableSpaces();
     virtual void routine() = 0;
     virtual void move() = 0;
+
+    void resetMoves();
     void setSpot(Coordinate newxy) {xy = newxy;};
 //    void placeOrg(Organism* organism, Coordinate update);
 

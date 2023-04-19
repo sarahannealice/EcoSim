@@ -28,8 +28,8 @@ City::~City() = default;
 
 //----------------methods----------------//
 //checks if both humans and zombies are on the map
-bool City::hasDiversity() {
-    return true;
+bool City::hasDiversity() const {
+    return (humanCount() > 0 && zombieCount() > 0);
 }
 
 //function to count zombies and humans
@@ -69,6 +69,9 @@ void City::placeOrg(Organism* activeOrg, Coordinate xy) {
 
 //removes desired organism at x,y location on map
 void City::resetOrg(Coordinate xy) {
+    if (map[xy.x][xy.y]->getType() == HUMAN) {
+        decHumans();
+    }
     map[xy.x][xy.y] = nullptr;
 }
 
@@ -88,18 +91,17 @@ void City::move() {
 }
 
 
-/*
+
 //resets every organism's 'move' boolean for next generation
 void City::reset() {
     for (auto & row : map) {
         for (auto & organism : row) {
             if (organism != nullptr) {
-                organism->resetMove();
+                organism->resetMoves();
             }
         }
     }
 }
- */
 
 //function to spawn starting zombies and humans
 array<int, 2> City::spawnPoint() {
@@ -152,8 +154,8 @@ void City::spawnOrganisms() {
         xy.x = spawn[0];
         xy.y = spawn[1];
 
-//        Organism* human = new Human(this, xy, HUMAN);
-//        map[x][y] = human;
+        Organism* human = new Human(this, xy, HUMAN);
+        map[xy.x][xy.y] = human;
     }
 
 }

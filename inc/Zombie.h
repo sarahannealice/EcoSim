@@ -25,6 +25,7 @@ public:
 	void move() override;
     void routine() override;
     vector<Coordinate> viableSpaces();
+
 //    bool breed();
 //    void starve();
 

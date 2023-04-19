@@ -27,20 +27,20 @@ public:
     array<int, 2> spawnPoint();
     void spawnOrganisms();
     int counter(char orgType);
-    bool hasDiversity();
+    bool hasDiversity() const;
     void move();
+    void reset();
     bool isHuman(Coordinate xy);
     void placeOrg(Organism* organism, Coordinate xy);
     void resetOrg(Coordinate xy);
     Organism *getOrg(Coordinate xy);
 
-
-//    void reset();
-
     //---counters---//
     void incZombies() { zombies++; };
+    void decZombies() { zombies--; };
     int zombieCount() const { return zombies; };
     void incHumans() { humans++; };
+    void decHumans() { humans--; };
     int humanCount() const { return humans; }
 
     friend ostream& operator<<( ostream &output, City &city );

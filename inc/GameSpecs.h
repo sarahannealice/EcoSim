@@ -30,7 +30,7 @@ const string BLANKCOLOR = "\033[34m";//pale blue
 const char HUMAN = 'H';//ascii H
 const int HUMANSTART =  5;//****change when done troubleshooting****
 const int RECRUIT = 3;
-const string HUMANCOLOR = "\033[95m";//bright magenta
+const string HUMANCOLOR = "\033[35m";//bright magenta
 
 //---zombie specs---//
 const char ZOMBIE = 'Z';//ascii Z

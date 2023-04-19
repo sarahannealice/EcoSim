@@ -17,7 +17,7 @@ using namespace std;
 //function that prints blank lines to 'clear screen'
 void ClearScreen()
 {
-    cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
 
 int main() {
@@ -30,7 +30,7 @@ int main() {
 
     chrono:: milliseconds interval(INTERVAL);
 
-    while (true) { //while both humans and zombies exist
+    while (map->hasDiversity()) { //while both humans and zombies exist
         this_thread::sleep_for(interval);
 
         cout << *map; //prints city
@@ -39,9 +39,7 @@ int main() {
         cout << "zombies: " << map->zombieCount() << endl;
 
         map->move(); //includes all actions
-        /*
-        city->reset(); //resets moved flags
-         */
+        map->reset(); //resets moved flags
 
         generation++;//increases generation each
         if (generation >= ITERATIONS) {
