@@ -26,12 +26,12 @@ City::City() {
 City::~City() = default;
 
 
+//----------------methods----------------//
+//checks if both humans and zombies are on the map
 bool City::hasDiversity() {
     return true;
 }
 
-
-//----------------methods----------------//
 //function to count zombies and humans
 int City::counter(char type) {
     switch (type) {
@@ -47,25 +47,27 @@ int City::counter(char type) {
 }
 
 //checks if grid spot contains human
-bool isHuman(Organism* organism, int coordinate) {
-    switch (coordinate) {
-        case Organism::NORTH:
-            placeOrg(organism, organism->x, organism->y - 1);
-
+bool City::isHuman(Coordinate xy) {
+    bool human = false;
+    //check if grid space is within bounds
+    if (xy.x < 0 || xy.y < 0 || xy.x > GRIDSIZE || xy.y > GRIDSIZE) {
+        human = false;
     }
 
-    return true;
+    //checks that the organism at the grid spot is human
+    if (map[xy.x][xy.y] != nullptr && map[xy.x][xy.y]->getType() == HUMAN) {
+        human = true;
+    }
+    return human;
 }
 
 //places desired organism at x,y location on map
-void City::placeOrg(Organism* organism, int x, int y) {
-
-
+void City::setOrg(Organism *organism, Coordinate xy) {
+    map[xy.x][xy.y] = organism;
 }
 
-//removes organism at x,y location on map
-void City::removeOrg(int x, int y) {
-
+Organism *City::getOrg(Coordinate xy) {
+    return map[xy.x][xy.y];
 }
 
 //function to spawn starting zombies and humans
@@ -104,20 +106,22 @@ void City::spawnOrganisms() {
     //adds zombies to starting grid so long as there aren't more than initial quantity
     for (int i = 0; i < ZOMBIESTART; i++) {
         spawn = spawnPoint();
-        x = spawn[0];
-        y = spawn[1];
+        Coordinate xy = *new Coordinate;
+        xy.x = spawn[0];
+        xy.y = spawn[1];
 
-        Organism* zombie = new Zombie(this, x, y, ZOMBIE);
-        map[x][y] = zombie;
+        Organism* zombie = new Zombie(this, xy, ZOMBIE);
+        map[xy.x][xy.y] = zombie;
     }
 
     //adds humans to starting grid so long as there aren't more than initial quantity
     for (int i = 0; i < HUMANSTART; i++) {
         spawn = spawnPoint();
-        x = spawn[0];
-        y = spawn[1];
+        Coordinate xy = *new Coordinate;
+        xy.x = spawn[0];
+        xy.y = spawn[1];
 
-        Organism* human = new Human(this, x, y, HUMAN);
+        Organism* human = new Human(this, xy, HUMAN);
         map[x][y] = human;
     }
 
@@ -163,4 +167,3 @@ ostream& operator<<(ostream &output, City &city) {
     }
     return output;
 }
-

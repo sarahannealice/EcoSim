@@ -12,7 +12,7 @@ private:
 public:
     //---constructors---//
 	Human() = default;
-	Human( City *city, int x, int y, char type) : Organism(city, x, y, type), recruitCount(0) {
+	Human( City *city, Coordinate xy, char type) : Organism(city, xy, type), recruitCount(0) {
         city->incHumans();
     };
 

@@ -34,44 +34,87 @@ void Zombie::routine() {
 }
 
 void Zombie::move() {
-    //gathers potential humans locations and checks if any are present
-    vector<spaces> gridSpaces = findFood();
+    //gathers potential coordinates
+    vector<Coordinate> gridSpaces = viableSpaces();
+    int i = 0;
+    //gets x-y coordinates from last coordinate in vector
+    //used as a last resort in while loop
+    //https://stackoverflow.com/a/14275413
+    int endx = gridSpaces.back().x;
+    int endy = gridSpaces.back().y;
 
-    for (int i = 0; i < BREED; i++) {
-        if (map->isHuman(this, gridSpaces.at(i))) {
+    //checks if the chosen grid space contains a human
+    while (!moved) {
+        if (map->isHuman(gridSpaces.at(i))) {
+            eat(gridSpaces.at(i));
+            moved = true;
         }
-        i++;
+
+        //if endx and endy are the current coordinate values, we're at the last
+        //element in the viable spaces vector
+        //if that's the case, move zombie (has been unable to eat)
+        if (gridSpaces.at(i).x == endx && gridSpaces.at(i).y == endy) {
+            if (map->getOrg(gridSpaces.at(i)) == nullptr) {
+                placeOrg(this, gridSpaces.at(i));
+            }
+        }
+        i++
     }
 
 
 
+
 }
 
-vector<Organism::spaces> findFood() {
-    vector<Zombie::spaces> foodSpaces;
+//zombie eats human
+//removes current zombie location and replaces human-to-eat with zombie
+//resets 'starve' counter
+void Zombie::eat() {
 
-    //potential spaces
+}
+
+vector<Coordinate> Zombie::viableSpaces() {
+    vector<Coordinate> gridSpaces{};
+
+    //check if grid spaces are within bounds
     //north
-    if (Organism::x > 0)
-    foodSpaces.push_back(Zombie::NORTH);
-    foodSpaces.push_back(Zombie::EAST);
-    foodSpaces.push_back(Zombie::SOUTH);
-    foodSpaces.push_back(Zombie::WEST);
-    //diagonals
-    foodSpaces.push_back(Zombie::NE);
-    foodSpaces.push_back(Zombie::SE);
-    foodSpaces.push_back(Zombie::SW);
-    foodSpaces.push_back(Zombie::NW);
+    if (y > 0) {
+        gridSpaces.push_back(*new Coordinate(this->x, this->y-1));
+    }
+    //northeast
+    if (y > 0 && x < GRIDSIZE-1) {
+        gridSpaces.push_back(*new Coordinate(this->x+1, this->y-1));
+    }
+    //east
+    if (x < GRIDSIZE-1) {
+        gridSpaces.push_back(*new Coordinate(this->x+1, this->y));
+    }
+    //southeast
+    if (x < GRIDSIZE-1 && y < GRIDSIZE-1) {
+        gridSpaces.push_back(*new Coordinate(this->x+1, this->y+1));
+    }
+    //south
+    if (y < GRIDSIZE-1) {
+        gridSpaces.push_back(*new Coordinate(this->x, this->y+1));
+    }
+    //southwest
+    if (y < GRIDSIZE-1 && x > 0) {
+        gridSpaces.push_back(*new Coordinate(this->x-1, this->y+1));
+    }
+    //west
+    if (x > 0) {
+        gridSpaces.push_back(*new Coordinate(this->x-1, this->y));
+    }
+    //northwest
+    if (x > 0 && y > 0) {
+        gridSpaces.push_back(*new Coordinate(this->x-1, this->y-1));
+    }
 
     //return a randomized vector
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-    shuffle(foodSpaces.begin(), foodSpaces.end(), default_random_engine(seed));
+    shuffle(gridSpaces.begin(), gridSpaces.end(), default_random_engine(seed));
 
-    return foodSpaces;
-}
-
-vector<Organism::spaces> openSpace() {
-
+    return gridSpaces;
 }
 
 

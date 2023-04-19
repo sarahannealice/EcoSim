@@ -11,18 +11,19 @@ class City;
 class Organism
 {
 protected:
-    int x{};
-    int y{};
     char type;
 	bool moved;
 	City *map;
 
 public:
+    Coordinate xy;
+    int x{};
+    int y{};
     enum { NORTH, NE, EAST, SE, SOUTH, SW, WEST, NW } typedef spaces;
 
     //---constructors---//
 	Organism() = default;
-	Organism( City *map, int x, int y, char type): map(map), x(x), y(y), type(type), moved(false) {};
+	Organism(City *map, Coordinate xy, char type): map(map), xy(xy), type(type), moved(false) {};
 	//---destructor---//
     virtual ~Organism() = default;
 
@@ -30,7 +31,7 @@ public:
     char getType() const {return type;};//might not need
     virtual void routine() = 0;
     virtual void move() = 0;
-    void placeOrg( int x, int y );
+    void placeOrg(Coordinate xy);
 
 //    virtual void getMoves() = 0;
 
@@ -40,6 +41,7 @@ public:
 
 
 	friend ostream& operator<<( ostream &output, Organism *organism );
+
 };
 
 #endif

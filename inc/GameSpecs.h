@@ -7,6 +7,15 @@
 
 using namespace std;
 
+//struct for using grid coordinates
+struct Coordinate {
+    int x{};
+    int y{};
+    //---constructors---//
+    Coordinate() {x = 0, y = 0;};
+    Coordinate(int x, int y) {x = x, y = y;};
+};
+
 //resource for ascii table -- https://en.cppreference.com/w/cpp/language/ascii
 //resource for colours -- https://stackoverflow.com/a/54062826
 //reason for const vs #define -- https://stackoverflow.com/a/3835772

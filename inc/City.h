@@ -29,12 +29,11 @@ public:
     int counter(char orgType);
     bool hasDiversity();
     void move();
-    bool isHuman(Organism* organism, int coordinate);
-    void placeOrg(Organism* organism, int x, int y);
-    void removeOrg(int x, int y);
+    bool isHuman(Coordinate xy);
+    void setOrg(Organism* organism, Coordinate xy);
+    Organism *getOrg(Coordinate xy);
+    void removeOrg(Coordinate xy);
 
-//    Organism *getOrganism( int x, int y );
-//    void setOrganism( Organism *organism, int x, int y );
 
 //    void reset();
 

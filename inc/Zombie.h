@@ -14,7 +14,7 @@ protected:
 public:
     //---constructors---//
 	Zombie() = default;
-	Zombie( City *city, int x, int y, char type) : Organism(city, x, y, type), breedCount(0), starveCount(0) {
+	Zombie( City *city, Coordinate xy, char type) : Organism(city, xy, type), breedCount(0), starveCount(0) {
         city->incZombies();
     };
 
@@ -24,7 +24,7 @@ public:
     //---methods---//
 	void move() override;
     void routine() override;
-    vector<spaces> findFood();
+    vector<Coordinate> viableSpaces();
 //    bool breed();
 //    void starve();
 

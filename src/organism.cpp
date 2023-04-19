@@ -6,6 +6,12 @@ using namespace std;
 #include "../inc/Organism.h"
 
 
+
+//places desired organism at x,y location on map
+void Organism::placeOrg(Coordinate xy) {
+    city->setOrg();
+}
+
 ostream &operator<<(ostream &output, Organism *organism) {
 
     //checks organism type and prints in corresponding colour
