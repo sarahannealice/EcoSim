@@ -9,8 +9,6 @@
 #include "../inc/Zombie.h"
 #include "../inc/Human.h"
 
-int count = 0;
-
 City::City() {
     //generates an empty city
     for (int i = 0; i < GRIDSIZE; i++) {
@@ -37,7 +35,7 @@ bool City::isHuman(Coordinate xy) {
     }
 
     //checks that the organism at the grid spot is human
-    if (this->map[xy.x][xy.y] != nullptr && this->map[xy.x][xy.y]->getType() == HUMAN) {
+    if (this->map[xy.y][xy.x] != nullptr && this->map[xy.y][xy.x]->getType() == HUMAN) {
         human = true;
     }
     return human;
@@ -45,17 +43,17 @@ bool City::isHuman(Coordinate xy) {
 
 //places desired organism at x,y location on map
 void City::placeOrg(Organism* activeOrg, Coordinate xy) {
-    this->map[xy.x][xy.y] = activeOrg;
+    this->map[xy.y][xy.x] = activeOrg;
     activeOrg->setSpot(xy);
 }
 
 //removes desired organism at x,y location on map
 void City::resetOrg(Coordinate xy) {
-    map[xy.x][xy.y] = nullptr;
+    map[xy.y][xy.x] = nullptr;
 }
 
 Organism *City::getOrg(Coordinate xy) {
-    return map[xy.x][xy.y];
+    return map[xy.y][xy.x];
 }
 
 //checks every organism on the grid and makes them perform their routine
@@ -100,7 +98,7 @@ Coordinate City::spawnPoint() {
 
         spawn.x = x;
         spawn.y = y;
-    } while (map[x][y] != nullptr);
+    } while (map[y][x] != nullptr);
 
     return spawn;
 }
@@ -116,7 +114,7 @@ void City::spawnOrganisms() {
         spawn = spawnPoint();
 
         Organism* zombie = new Zombie(this, spawn, ZOMBIE);
-        map[spawn.x][spawn.y] = zombie;
+        map[spawn.y][spawn.x] = zombie;
     }
 
     //adds humans to starting grid so long as there aren't more than initial quantity
@@ -124,7 +122,7 @@ void City::spawnOrganisms() {
         spawn = spawnPoint();
 
         Organism* human = new Human(this, spawn, HUMAN);
-        map[spawn.x][spawn.y] = human;
+        map[spawn.y][spawn.x] = human;
     }
 
 }

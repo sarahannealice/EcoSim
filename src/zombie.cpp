@@ -127,7 +127,7 @@ void Zombie::reproduce() {
         if (i >= gridSpaces.size()) {
             break;
         } else if (map->isHuman(gridSpaces.at(i))) {
-            Organism* newOrg = new Zombie;
+            Organism* newOrg = new Zombie (map, this->xy, ZOMBIE);
             map->placeOrg(newOrg, gridSpaces.at(i));
             breedCount = 0;//reset counter
 

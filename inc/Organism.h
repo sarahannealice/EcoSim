@@ -29,7 +29,7 @@ public:
     virtual void routine() = 0;
     virtual void move() = 0;
     void resetMoves();
-    void setSpot(Coordinate newxy) {xy = newxy;};
+    void setSpot(Coordinate newxy) {this->xy = newxy;};
 
 	friend ostream& operator<<( ostream &output, Organism *organism );
 };

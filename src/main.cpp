@@ -17,7 +17,7 @@ using namespace std;
 //function that prints blank lines to 'clear screen'
 void ClearScreen()
 {
-    cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
 
 int main() {
@@ -35,7 +35,7 @@ int main() {
         cout << *map;
         cout << "generation: " << generation;
         cout << "\t\t\t\t\t\thumans: " << map->humanCount();
-        cout << "\tzombies: " << map->zombieCount() << endl;
+        cout << "\tzombies: " << map->zombieCount() << endl << endl;
         this_thread::sleep_for(interval);
 
         map->move(); //includes all actions
@@ -43,6 +43,7 @@ int main() {
 
         generation++;//increases generation each
         ClearScreen();
-    }while (map->hasDiversity()); //while both humans and zombies exist
+//    } while (true);
+    }while (map->hasDiversity() && generation < ITERATIONS); //while both humans and zombies exist
 }//end main
 
