@@ -11,8 +11,8 @@ class City;
 class Organism
 {
 protected:
-    char type;
-	bool moved;
+    char type{};
+	bool moved{};
 	City *map{};
 
 public:

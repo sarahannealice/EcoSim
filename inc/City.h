@@ -25,9 +25,16 @@ public:
     //---destructor---//
     virtual ~City() = default;
 
+    //---counters---//
+    void incZombies() { zombies++; };
+    void decZombies() { zombies--; };
+    int zombieCount() const { return zombies; };
+    void incHumans() { humans++; };
+    void decHumans() { humans--; };
+    int humanCount() const { return humans; }
+
     //---methods---//
     Coordinate spawnPoint();
-//    array<int, 2> spawnPoint();
     void spawnOrganisms();
     bool hasDiversity() const;
     void move();
@@ -36,14 +43,6 @@ public:
     void placeOrg(Organism* organism, Coordinate xy);
     void resetOrg(Coordinate xy);
     Organism *getOrg(Coordinate xy);
-
-    //---counters---//
-    void incZombies() { zombies++; };
-    void decZombies() { zombies--; };
-    int zombieCount() const { return zombies; };
-    void incHumans() { humans++; };
-    void decHumans() { humans--; };
-    int humanCount() const { return humans; }
 
     friend ostream& operator<<( ostream &output, City &city );
 };

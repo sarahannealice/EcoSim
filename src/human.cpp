@@ -9,12 +9,18 @@
 
 //goes through human's routine
 void Human::routine() {
+    //check if human has moved already
     if (!moved) {
         move();
+
+        //checks recruit counter and calls method
         if (recruitCount >= RECRUIT) {
             recruit();
+            //resets even if recruiting was unsuccessful
             recruitCount = 0;
         }
+
+        //increases counter and sets 'moved' to true
         recruitCount++;
         moved = true;
     }
@@ -28,9 +34,11 @@ void Human::move() {
     int i = 0;
 
     while (!moved) {
+        //if iterator is greater than vector, stop while loop (can cause issues otherwise)
         if (i >= gridSpaces.size()) {
             break;
         } else if (map->getOrg(gridSpaces.at(i)) == nullptr) {
+            //move current human to new grid coordinate
             map->resetOrg(current);
             map->placeOrg(this, gridSpaces.at(i));
             break;
@@ -60,23 +68,26 @@ vector<Coordinate> Human::viableSpaces() {
         spaces.push_back(*new Coordinate(this->xy.x-1, this->xy.y));
     }
 
-//    this->gridSpaces = spaces;
-    //randomized the vector
+    //returns a randomized vector
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     shuffle(spaces.begin(), spaces.end(), default_random_engine(seed));
+
     return spaces;
 }
 
 //adds another human to the grid if spot is available
 void Human::recruit() {
+    //gathers all viable grid locations
     vector<Coordinate> gridSpaces = viableSpaces();
     int i = 0;
 
     while (!moved) {
+        //prevents iteration from exceeding vector size
         if (i >= gridSpaces.size()) {
             this->recruitCount = 0;
             break;
         } else if (map->getOrg(gridSpaces.at(i)) == nullptr) {
+            //generates new human organism in adjacent grid coordinate
             Organism* newOrg = new Human(map, gridSpaces.at(i), HUMAN);
             map->placeOrg(newOrg, gridSpaces.at(i));
             recruitCount = 0;

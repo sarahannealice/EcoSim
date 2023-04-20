@@ -8,9 +8,9 @@
 class Zombie : public Organism
 {
 protected:
-    char type = ZOMBIE;
-    int breedCount;
-    int starveCount;
+    int breedCount{};
+    int starveCount{};
+
 public:
     //---constructors---//
 	Zombie() = default;

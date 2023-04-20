@@ -19,19 +19,24 @@ void Zombie::routine() {
     if (!moved) {
         move();
 
+        //checks the breed counter and calls method
         if (breedCount >= BREED) {
             reproduce();
         }
 
+        //checks the starve counter and calls method
         if (starveCount >= STARVE) {
             starve();
         }
+
+        //increases counters and sets 'moved' to true
         breedCount++;
         starveCount++;
         moved = true;
     }
 }
 
+//function to check where's viable for zombie to move
 void Zombie::move() {
     Coordinate current = xy;
     //gathers potential coordinates
@@ -46,9 +51,11 @@ void Zombie::move() {
 
     //checks if the chosen grid space contains a human to eat
     while (!moved) {
+        //if iterator is greater than vector, stop while loop (can cause issues otherwise)
         if (i >= gridSpaces.size()) {
             break;
         } else if (map->isHuman(gridSpaces.at(i))) {
+            //if human is present, replace with zombie (zombie eats human)
             map->resetOrg(current);
             map->placeOrg(this, gridSpaces.at(i));
             starveCount = 0;//reset counter
@@ -71,7 +78,7 @@ void Zombie::move() {
     }
 }//end Zombie::move
 
-
+//collects all in-bounds grid coordinates
 vector<Coordinate> Zombie::viableSpaces() {
     vector<Coordinate> spaces{};
 
@@ -112,17 +119,19 @@ vector<Coordinate> Zombie::viableSpaces() {
     //returns randomized vector
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     shuffle(spaces.begin(), spaces.end(), default_random_engine(seed));
+
     return spaces;
 }//end Zombie::viablespaces
 
-//reproduce zombie method
+//breed zombie method
 void Zombie::reproduce() {
-    bool fruition = true;
     //gathers potential coordinates
     vector<Coordinate> gridSpaces = viableSpaces();
     int i = 0;
 
     //checks if the chosen grid space contains a human
+    //if so, convert human to zombie
+    //if not, keep counter as is and return to routine method
     while (!moved) {
         if (i >= gridSpaces.size()) {
             break;
@@ -137,9 +146,6 @@ void Zombie::reproduce() {
         }
         i++;
     }
-
-
-//    return fruition;
 }
 
 //converts starved zombie back to human

@@ -7,8 +7,8 @@
 class Human : public Organism
 {
 private:
-    char type = HUMAN;
-    int recruitCount;
+    int recruitCount{};
+
 public:
     //---constructors---//
 	Human() = default;
@@ -26,7 +26,5 @@ public:
 
     //---routine specifics---//
     void recruit();
-
 };
-
 #endif

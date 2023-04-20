@@ -52,6 +52,7 @@ void City::resetOrg(Coordinate xy) {
     map[xy.y][xy.x] = nullptr;
 }
 
+//retrieves organism at desired coordinate
 Organism *City::getOrg(Coordinate xy) {
     return map[xy.y][xy.x];
 }
@@ -124,9 +125,9 @@ void City::spawnOrganisms() {
         Organism* human = new Human(this, spawn, HUMAN);
         map[spawn.y][spawn.x] = human;
     }
-
 }
 
+//overloaded operator for '<<'
 ostream& operator<<(ostream &output, City &city) {
     //prints grid
     for (auto & row : city.map) {

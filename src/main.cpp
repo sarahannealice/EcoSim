@@ -44,6 +44,6 @@ int main() {
         generation++;//increases generation each
         ClearScreen();
 //    } while (true);
-    }while (map->hasDiversity() && generation < ITERATIONS); //while both humans and zombies exist
+    }while (map->hasDiversity() && generation < ITERATIONS); //while both humans and zombies exist and generation is under 1000
 }//end main
 

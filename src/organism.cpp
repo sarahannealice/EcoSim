@@ -6,13 +6,13 @@ using namespace std;
 #include "../inc/Organism.h"
 #include "../inc/City.h"
 
+//resets 'moved' boolean for desired organism
 void Organism::resetMoves() {
     moved = false;
 }
 
 ostream &operator<<(ostream &output, Organism *organism) {
-
-    //checks organism type and prints in corresponding colour
+    //checks organism type and prints in corresponding colour (blank has its own color)
     switch (organism->type) {
         case ZOMBIE:
             output << " " << ZOMBIECOLOR << organism->type << BLANKCOLOR << " ";
