@@ -12,8 +12,8 @@ private:
 public:
     //---constructors---//
 	Human() = default;
-	Human( City *city, Coordinate xy, char type) : Organism(city, xy, type), recruitCount(0) {
-        city->incHumans();
+	Human( City *map, Coordinate xy, char type) : Organism(map, xy, type), recruitCount(0) {
+        map->incHumans();
     };
 
     //---destructor---//

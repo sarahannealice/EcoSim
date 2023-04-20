@@ -11,13 +11,12 @@
 void Human::routine() {
     if (!moved) {
         move();
-        if (recruitCount > RECRUIT) {
-            this->recruitCount = 0;
+        if (recruitCount >= RECRUIT) {
             recruit();
+            recruitCount = 0;
         }
         recruitCount++;
         moved = true;
-    } else {
     }
 }
 
@@ -40,9 +39,9 @@ void Human::move() {
     }
 }
 
+//method to collect potential moving grid spaces
 vector<Coordinate> Human::viableSpaces() {
     vector<Coordinate> spaces{};
-
     //check if grid spaces are within bounds then adds to vector if so
     //north
     if (this->xy.y > 0) {
@@ -68,6 +67,7 @@ vector<Coordinate> Human::viableSpaces() {
     return spaces;
 }
 
+//adds another human to the grid if spot is available
 void Human::recruit() {
     vector<Coordinate> gridSpaces = viableSpaces();
     int i = 0;
@@ -79,7 +79,7 @@ void Human::recruit() {
         } else if (map->getOrg(gridSpaces.at(i)) == nullptr) {
             Organism* newOrg = new Human(map, gridSpaces.at(i), HUMAN);
             map->placeOrg(newOrg, gridSpaces.at(i));
-            this->recruitCount = 0;
+            recruitCount = 0;
             break;
         }
         i++;

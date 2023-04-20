@@ -32,20 +32,6 @@ bool City::hasDiversity() const {
     return (humanCount() > 0 && zombieCount() > 0);
 }
 
-//function to count zombies and humans
-int City::counter(char type) {
-    switch (type) {
-        HUMAN:
-            count = humans;
-            break;
-        ZOMBIE:
-            count = zombies;
-            break;
-    }
-
-    return count;
-}
-
 //checks if grid spot contains human
 bool City::isHuman(Coordinate xy) {
     bool human = false;
@@ -69,9 +55,6 @@ void City::placeOrg(Organism* activeOrg, Coordinate xy) {
 
 //removes desired organism at x,y location on map
 void City::resetOrg(Coordinate xy) {
-    if (map[xy.x][xy.y]->getType() == HUMAN) {
-        decHumans();
-    }
     map[xy.x][xy.y] = nullptr;
 }
 
@@ -89,8 +72,6 @@ void City::move() {
         }
     }
 }
-
-
 
 //resets every organism's 'move' boolean for next generation
 void City::reset() {

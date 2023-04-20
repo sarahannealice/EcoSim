@@ -14,8 +14,8 @@ protected:
 public:
     //---constructors---//
 	Zombie() = default;
-	Zombie( City *city, Coordinate xy, char type) : Organism(city, xy, type), breedCount(0), starveCount(0) {
-        city->incZombies();
+	Zombie( City *map, Coordinate xy, char type) : Organism(map, xy, type), breedCount(0), starveCount(0) {
+        map->incZombies();
     };
 
     //---destructor---//
@@ -24,10 +24,10 @@ public:
     //---methods---//
 	void move() override;
     void routine() override;
+    void starve();
+    void reproduce();
     vector<Coordinate> viableSpaces();
 
-//    bool breed();
-//    void starve();
 
 };
 #endif

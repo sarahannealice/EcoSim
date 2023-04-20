@@ -30,22 +30,19 @@ int main() {
 
     chrono:: milliseconds interval(INTERVAL);
 
-    while (map->hasDiversity()) { //while both humans and zombies exist
-        this_thread::sleep_for(interval);
-
-        cout << *map; //prints city
-        cout << "generation: " << generation << endl;
-        cout << "humans: " << map->humanCount() << endl;
-        cout << "zombies: " << map->zombieCount() << endl;
-
+    do {
         map->move(); //includes all actions
         map->reset(); //resets moved flags
 
+        //prints city and counters
+        cout << *map;
+        cout << "generation: " << generation << endl;
+        cout << "humans: " << map->humanCount() << endl;
+        cout << "zombies: " << map->zombieCount() << endl;
+        this_thread::sleep_for(interval);
+
         generation++;//increases generation each
-        if (generation >= ITERATIONS) {
-            break;
-        }
         ClearScreen();
-    }//end while
+    }while (map->hasDiversity()); //while both humans and zombies exist
 }//end main
 

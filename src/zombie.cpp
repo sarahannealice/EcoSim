@@ -10,29 +10,26 @@ using namespace std;
 #include "../inc/Organism.h"
 #include "../inc/Zombie.h"
 #include "../inc/City.h"
+#include "../inc/Human.h"
 
 
 //function to check if zombie can-should move or eat
 void Zombie::routine() {
     //check if zombie has moved already
-//    if (!moved) {
+    if (!moved) {
         move();
-//        moved = true;
-//        breedCount++;
-//        starveCount++;
 
-        /*
         if (breedCount >= BREED) {
-            if (reproduce()) {
-                breedCount = 0;
-            }
+            reproduce();
         }
 
         if (starveCount >= STARVE) {
             starve();
         }
-         */
-//    }
+        breedCount++;
+        starveCount++;
+        moved = true;
+    }
 }
 
 void Zombie::move() {
@@ -47,15 +44,17 @@ void Zombie::move() {
     int endx = gridSpaces.back().x;
     int endy = gridSpaces.back().y;
 
-
-    //checks if the chosen grid space contains a human
+    //checks if the chosen grid space contains a human to eat
     while (!moved) {
         if (i >= gridSpaces.size()) {
             break;
-        } else if (map->isHuman(gridSpaces.at(i)) && i < gridSpaces.size()) {
+        } else if (map->isHuman(gridSpaces.at(i))) {
             map->resetOrg(current);
             map->placeOrg(this, gridSpaces.at(i));
             starveCount = 0;//reset counter
+
+            //update counter
+            map->decHumans();
             break;
         }
 
@@ -70,17 +69,6 @@ void Zombie::move() {
         }
         i++;
     }
-
-    //another loop if they weren't able to eat the first time through
-//    while (!moved) {
-//        if (map->getOrg(gridSpaces.at(0)) == nullptr) {
-//            map->resetOrg(current);
-//            map->placeOrg(this, gridSpaces.at(0));
-//            break;
-//        } else {
-//            break;
-//        }
-//    }
 }//end Zombie::move
 
 
@@ -127,12 +115,41 @@ vector<Coordinate> Zombie::viableSpaces() {
     return spaces;
 }//end Zombie::viablespaces
 
+//reproduce zombie method
+void Zombie::reproduce() {
+    bool fruition = true;
+    //gathers potential coordinates
+    vector<Coordinate> gridSpaces = viableSpaces();
+    int i = 0;
+
+    //checks if the chosen grid space contains a human
+    while (!moved) {
+        if (i >= gridSpaces.size()) {
+            break;
+        } else if (map->isHuman(gridSpaces.at(i))) {
+            Organism* newOrg = new Zombie;
+            map->placeOrg(newOrg, gridSpaces.at(i));
+            breedCount = 0;//reset counter
+
+            //update counter
+            map->decHumans();
+            break;
+        }
+        i++;
+    }
 
 
-/*
-void Zombie::starve() {
-    city->grid[x][y] = new Human;
+//    return fruition;
 }
-*/
+
+//converts starved zombie back to human
+void Zombie::starve() {
+    Organism* newOrg = new Human (map, this->xy, HUMAN);
+    map->resetOrg(this->xy);
+    map->placeOrg(newOrg, this->xy);
+
+    //update counters
+    map->decZombies();
+}
 
 
