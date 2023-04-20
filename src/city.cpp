@@ -22,10 +22,6 @@ City::City() {
     spawnOrganisms();
 }
 
-//destructor
-City::~City() = default;
-
-
 //----------------methods----------------//
 //checks if both humans and zombies are on the map
 bool City::hasDiversity() const {
@@ -41,7 +37,7 @@ bool City::isHuman(Coordinate xy) {
     }
 
     //checks that the organism at the grid spot is human
-    if (map[xy.x][xy.y] != nullptr && map[xy.x][xy.y]->getType() == HUMAN) {
+    if (this->map[xy.x][xy.y] != nullptr && this->map[xy.x][xy.y]->getType() == HUMAN) {
         human = true;
     }
     return human;
@@ -49,7 +45,7 @@ bool City::isHuman(Coordinate xy) {
 
 //places desired organism at x,y location on map
 void City::placeOrg(Organism* activeOrg, Coordinate xy) {
-    map[xy.x][xy.y] = activeOrg;
+    this->map[xy.x][xy.y] = activeOrg;
     activeOrg->setSpot(xy);
 }
 
@@ -85,16 +81,16 @@ void City::reset() {
 }
 
 //function to spawn starting zombies and humans
-array<int, 2> City::spawnPoint() {
+Coordinate City::spawnPoint() {
     /*
     * finds a random, empty spot on the city grid for a zombie or human to spawn
-    *randomly selects value between 1-20 (grid size) for both x and y
+    *randomly selects value between 1-20 (grid size) for both x and y coordinates
     *resources -- https://cplusplus.com/reference/cstdlib/rand/
     **note** there is a limited 'randomness' using 'rand'
     */
     int x;
     int y;
-    array<int, 2> spawn{};
+    Coordinate spawn;
     srand (time(NULL));
 
     //loop in case it generates a grid location pre-occupied
@@ -102,8 +98,8 @@ array<int, 2> City::spawnPoint() {
         x = rand() % GRIDSIZE;
         y = rand() % GRIDSIZE;
 
-        spawn[0] = x;
-        spawn[1] = y;
+        spawn.x = x;
+        spawn.y = y;
     } while (map[x][y] != nullptr);
 
     return spawn;
@@ -112,37 +108,28 @@ array<int, 2> City::spawnPoint() {
 //initializes city with humans & zombies
 void City::spawnOrganisms() {
 
-    //variables for spawn locations
-    array<int, 2> spawn{};
-    int x;
-    int y;
+    //variable for spawn point
+    Coordinate spawn;
 
     //adds zombies to starting grid so long as there aren't more than initial quantity
     for (int i = 0; i < ZOMBIESTART; i++) {
         spawn = spawnPoint();
-        Coordinate xy = *new Coordinate;
-        xy.x = spawn[0];
-        xy.y = spawn[1];
 
-        Organism* zombie = new Zombie(this, xy, ZOMBIE);
-        map[xy.x][xy.y] = zombie;
+        Organism* zombie = new Zombie(this, spawn, ZOMBIE);
+        map[spawn.x][spawn.y] = zombie;
     }
 
     //adds humans to starting grid so long as there aren't more than initial quantity
     for (int i = 0; i < HUMANSTART; i++) {
         spawn = spawnPoint();
-        Coordinate xy = *new Coordinate;
-        xy.x = spawn[0];
-        xy.y = spawn[1];
 
-        Organism* human = new Human(this, xy, HUMAN);
-        map[xy.x][xy.y] = human;
+        Organism* human = new Human(this, spawn, HUMAN);
+        map[spawn.x][spawn.y] = human;
     }
 
 }
 
 ostream& operator<<(ostream &output, City &city) {
-
     //prints grid
     for (auto & row : city.map) {
         for (auto & organism : row) {

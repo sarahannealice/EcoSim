@@ -31,15 +31,15 @@ int main() {
     chrono:: milliseconds interval(INTERVAL);
 
     do {
-        map->move(); //includes all actions
-        map->reset(); //resets moved flags
-
         //prints city and counters
         cout << *map;
-        cout << "generation: " << generation << endl;
-        cout << "humans: " << map->humanCount() << endl;
-        cout << "zombies: " << map->zombieCount() << endl;
+        cout << "generation: " << generation;
+        cout << "\t\t\t\t\t\thumans: " << map->humanCount();
+        cout << "\tzombies: " << map->zombieCount() << endl;
         this_thread::sleep_for(interval);
+
+        map->move(); //includes all actions
+        map->reset(); //resets moved flags
 
         generation++;//increases generation each
         ClearScreen();

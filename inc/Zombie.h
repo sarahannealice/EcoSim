@@ -27,7 +27,5 @@ public:
     void starve();
     void reproduce();
     vector<Coordinate> viableSpaces();
-
-
 };
 #endif

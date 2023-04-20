@@ -26,23 +26,12 @@ public:
 
     //---methods---//
     char getType() const {return type;};//might not need
-//    virtual vector<Coordinate> viableSpaces();
     virtual void routine() = 0;
     virtual void move() = 0;
-
     void resetMoves();
     void setSpot(Coordinate newxy) {xy = newxy;};
-//    void placeOrg(Organism* organism, Coordinate update);
-
-//    virtual void getMoves() = 0;
-
-//    virtual void reproduce() = 0;
-    //virtual vector<spaces> moveOptions();
-
-
 
 	friend ostream& operator<<( ostream &output, Organism *organism );
-
 };
 
 #endif

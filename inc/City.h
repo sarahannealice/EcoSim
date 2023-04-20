@@ -21,12 +21,14 @@ private:
 public:
     //---constructors---//
     City();
-    virtual ~City();
+
+    //---destructor---//
+    virtual ~City() = default;
 
     //---methods---//
-    array<int, 2> spawnPoint();
+    Coordinate spawnPoint();
+//    array<int, 2> spawnPoint();
     void spawnOrganisms();
-    int counter(char orgType);
     bool hasDiversity() const;
     void move();
     void reset();
