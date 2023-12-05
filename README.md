@@ -6,9 +6,9 @@ C++ Assignment 4
 * the simulation cannot exceed 1000 generations
 
 
-  
-> achieved the below results with 100 humans and 25 zombies to start!
+
+achieved the below results with 100 humans and 25 zombies to start!
 
 ![img.png](img.png)
 
-pictured above: final generation (humans prevail)
+>pictured above: final generation (humans prevail)
